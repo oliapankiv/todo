@@ -1,5 +1,7 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink, RouterLinkActive, ActivatedRoute } from '@angular/router';
+
+import { Subscription } from 'rxjs';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
@@ -22,7 +24,7 @@ interface Tab {
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss',
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnInit, OnDestroy {
   public readonly todos = computed(() => this.todoService.getItems(this.tab()))
   public readonly activeTodos = computed(() => this.todos().filter(item => !item.completed))
 
@@ -37,9 +39,14 @@ export class TodoListComponent {
   private readonly todoService = inject(TodoService);
   private readonly route = inject(ActivatedRoute);
 
+  private sub!: Subscription;
 
   public ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => this.tab.set(params['tab']))
+    this.sub = this.route.queryParams.subscribe((params) => this.tab.set(params['tab']))
+  }
+
+  public ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   public onRemoveTodo(id: number): void {
