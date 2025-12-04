@@ -1,0 +1,4 @@
+<mat-form-field class="todo-input" appearance="outline" subscriptsizing="dynamic">
+	<mat-label>What needs to be done?</mat-label>
+	<input autofocus matInput [(ngModel)]="title" (keyup.enter)="addTodo()" />
+</mat-form-field>

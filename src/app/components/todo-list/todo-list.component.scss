@@ -1,0 +1,29 @@
+:host::ng-deep {
+  .toggle-all {
+    label {
+      color: #615252
+    }
+  }
+}
+
+.toggle-all {
+  margin: 20px 0 0 -10px;
+}
+
+.todo-item:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.todos-footer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.clear-completed-btn {
+  text-decoration: underline;
+
+  &:hover {
+    color: #5c5858;
+  }
+}

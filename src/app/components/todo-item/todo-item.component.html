@@ -1,0 +1,7 @@
+<div class="item">
+	<mat-checkbox [checked]="todo().completed" (change)="onToggleClick()">
+		{{ todo().title }}
+	</mat-checkbox>
+
+	<button class="remove-btn" aria-label="Remove todo" (click)="onRemoveClick()"></button>
+</div>

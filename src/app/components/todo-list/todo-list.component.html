@@ -1,0 +1,45 @@
+<todo-input />
+
+<nav mat-align-tabs="start" mat-stretch-tabs="false" mat-tab-nav-bar [tabPanel]="tabPanel">
+	@for (item of tabs; track item) {
+		<a
+			#rla="routerLinkActive"
+			mat-tab-link
+			routerLink="/todo"
+			routerLinkActive
+			[active]="rla.isActive"
+			[queryParams]="{ tab: item.tab }"
+			[routerLinkActiveOptions]="{ exact: true }"
+		>
+			{{ item.label }}
+		</a>
+	}
+</nav>
+
+<ng-container #tabPanel>
+	@if (todos().length) {
+		<mat-checkbox class="toggle-all" [checked]="!activeTodos().length" (change)="toggleAll($event)">
+			Toggle all
+		</mat-checkbox>
+
+		<ul class="todos-wrapper">
+			@for (todo of todos(); track todo.id) {
+				<li class="todo-item">
+					<todo-item [todo]="todo" (remove)="onRemoveTodo(todo.id)" (toggle)="onToggleTodo(todo.id)" />
+				</li>
+			}
+		</ul>
+
+		<div class="todos-footer">
+			<p>{{ activeTodos().length }} items left</p>
+
+			@if (todos().length > activeTodos().length) {
+				<button class="clear-completed-btn" type="button" (click)="onClearCompletedClick()">
+					Clear completed
+				</button>
+			}
+		</div>
+	} @else {
+		<p>Nothing here ...</p>
+	}
+</ng-container>

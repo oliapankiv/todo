@@ -1,0 +1,35 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.remove-btn {
+  position: relative;
+  display: flex;
+  height: 20px;
+  width: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  align-self: center;
+}
+
+.remove-btn::before,
+.remove-btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 2px;
+  background: red;
+  transform-origin: center;
+}
+
+.remove-btn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.remove-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
